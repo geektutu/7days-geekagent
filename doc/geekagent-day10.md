@@ -1,3 +1,16 @@
+---
+title: 从零实现 GeekAgent —— Day10 项目指令与长期记忆
+description: >-
+  7天从零实现Agent教程，用 TypeScript 动手写一个最简单的 Agent/Harness。Day 10 补上两种跨会话信息：AGENTS.md 保存项目规则，memory 保存运行中积累的经验，让新建会话后的模型既知道项目规则，也想得起以前确认过的偏好。
+date: '2026-08-29 21:30:00'
+tags:
+  - Agent
+  - Harness
+book: geekagent
+status: done
+draft: false
+---
+
 # Day 10：项目指令与长期记忆
 
 > GeekAgent 已经能保存会话，但新建会话后，模型不知道项目规则，也想不起以前确认过的偏好。今天补上两种跨会话信息：`AGENTS.md` 保存项目规则，memory 保存运行中积累的经验。

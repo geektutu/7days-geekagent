@@ -1,3 +1,16 @@
+---
+title: 从零实现 GeekAgent —— Day6 多会话与持久化
+description: >-
+  7天从零实现Agent教程，用 TypeScript 动手写一个最简单的 Agent/Harness。Day 6 做两件事：让一个进程内可以同时维护多条互相独立的会话（/new、/sessions、/open），再把整个会话集合连同当前 ID 一次性落成 JSON（/save、/load，退出自动保存）——「聊得长」升级成「分得开、留得住」。
+date: '2026-08-25 21:30:00'
+tags:
+  - Agent
+  - Harness
+book: geekagent
+status: done
+draft: false
+---
+
 # Day 6：同时聊几件事，窗口关了还在——多会话与会话持久化
 
 > Day 5 已经能压缩一条过长的 `history`，但所有话题仍挤在同一条数组里：上午改代码、下午查资料，模型每次都要同时看到两边的上下文。Day 6 做两件事：让一个进程内可以同时维护多条互相独立的会话（`/new`、`/sessions`、`/open`），再把**整个会话集合连同当前 ID**一次性落成 JSON（`/save`、`/load`，退出自动保存）——「聊得长」升级成「分得开、留得住」。

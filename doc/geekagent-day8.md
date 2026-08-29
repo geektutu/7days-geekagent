@@ -1,3 +1,16 @@
+---
+title: 从零实现 GeekAgent —— Day8 权限与回滚
+description: >-
+  7天从零实现Agent教程，用 TypeScript 动手写一个最简单的 Agent/Harness。Day 8 给工具划边界，也给写入留后路：用 .geekagent/GeekAgent.json 划清权限与目录边界，再给每次文件写入保存最近状态——不该做的操作提前拦住，写错还能用 /undo 恢复。
+date: '2026-08-27 21:30:00'
+tags:
+  - Agent
+  - Harness
+book: geekagent
+status: done
+draft: false
+---
+
 # Day 8：给工具划边界，也给写入留后路——权限与回滚
 
 > Day 7 已经能让 Agent 在终端里持续工作，但「能调用」几乎等于「有权限调用」：读工具永远放行，shell 和写工具永远询问，而且文件路径可以指向机器上的任何位置。今天先用 `.geekagent/GeekAgent.json` 划清权限与目录边界，再给每次文件写入保存最近状态：不该做的操作提前拦住，已经确认却写错的内容还能用 `/undo` 恢复。

@@ -1,3 +1,16 @@
+---
+title: 从零实现 GeekAgent —— Day3 Bash 工具
+description: >-
+  7天从零实现Agent教程，用 TypeScript 动手写一个最简单的 Agent/Harness。Day 3 给模型接上第一个能碰真实机器的工具：在本地执行 shell 命令，并加上超时、输出截断、执行前确认三道护栏，让 Agent 真正「动手」。
+date: '2026-08-22 21:30:00'
+tags:
+  - Agent
+  - Harness
+book: geekagent
+status: done
+draft: false
+---
+
 # Day 3：让模型真正「动手」——Bash is all you need
 
 > Day 2 打通了「工具调用循环」，但 `get_current_time` 只是个零风险演示。Day 3 给模型接上第一个能碰真实机器的工具：在本地执行 shell 命令，并加上超时、输出截断、执行前确认三道护栏。

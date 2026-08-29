@@ -1,3 +1,16 @@
+---
+title: 从零实现 GeekAgent —— Day1 REPL 地基
+description: >-
+  7天从零实现Agent教程(days implement agent from scratch tutorial)，用 TypeScript/Node.js 动手写一个最简单的 Agent/Harness，从零实现 REPL 循环与流式多轮对话。本文介绍 REPL 是什么、为什么 Agent 的地基要选它，以及如何用 readline + OpenAI 兼容接口在不到 160 行代码里跑通「能聊」的第一步。
+date: '2026-08-20 21:30:00'
+tags:
+  - Agent
+  - Harness
+book: geekagent
+status: done
+draft: false
+---
+
 # Day 1：一个「最简单」Agent 的 REPL 地基
 
 ## 0. 标题从哪来：REPL 是什么

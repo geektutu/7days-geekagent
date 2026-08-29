@@ -1,3 +1,16 @@
+---
+title: 从零实现 GeekAgent —— Day5 历史压缩
+description: >-
+  7天从零实现Agent教程，用 TypeScript 动手写一个最简单的 Agent/Harness。Day 5 解决「聊得长、不淡忘」：当 history 数组只增不减、对话越来越长，通过压缩历史来控制上下文规模，让长对话不超出模型上下文窗口。
+date: '2026-08-24 21:30:00'
+tags:
+  - Agent
+  - Harness
+book: geekagent
+status: done
+draft: false
+---
+
 # Day 5：聊得长，不淡忘——历史压缩
 
 ## 0. 为什么要压缩 history

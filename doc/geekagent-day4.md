@@ -1,3 +1,16 @@
+---
+title: 从零实现 GeekAgent —— Day4 文件工具与注册表
+description: >-
+  7天从零实现Agent教程，用 TypeScript 动手写一个最简单的 Agent/Harness。Day 4 把读写都从 shell 里拆出来：读走免确认的专用工具（ls/read/glob），写走展示 diff 再落盘的专用通道（write/patch），并把攒下的工具统一进一个注册表，让模型第一次走通「读→改→验证」的闭环。
+date: '2026-08-23 21:30:00'
+tags:
+  - Agent
+  - Harness
+book: geekagent
+status: done
+draft: false
+---
+
 # Day 4：把读写都从 shell 里拆出来——文件工具与注册表
 
 > Day 3 只给了模型一扇门：`run_shell`。读文件要被反复过问，改代码只能用 `echo >` / `sed`，改了什么看不见、确认是对整条命令拍板。Day 4 一次把这两端都拆出来：**读**走免确认的专用工具（`ls` / `read` / `glob`），**写**走展示 diff 再落盘的专用通道（`write` / `patch`），顺手把攒下的 7 个工具统一进一个注册表。这一天，模型第一次走通「读 → 改 → 验证」的闭环。

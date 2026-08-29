@@ -1,3 +1,16 @@
+---
+title: 从零实现 GeekAgent —— Day9 任务规划与子 Agent
+description: >-
+  7天从零实现Agent教程，用 TypeScript 动手写一个最简单的 Agent/Harness。Day 9 让 Agent 先列清单再动手：加一张由模型维护的 TODO 表，再提供一个隔离上下文的子 Agent。主 Agent 安排顺序，子 Agent 处理边界清楚的小任务，当前进度始终显示在右侧分栏。
+date: '2026-08-28 21:30:00'
+tags:
+  - Agent
+  - Harness
+book: geekagent
+status: done
+draft: false
+---
+
 # Day 9：让 Agent 先列清单再动手——任务规划与子 Agent
 
 > 前八天的 GeekAgent 已经能读写文件、执行命令，也有了权限边界。但面对一个包含多个步骤的任务，它仍然只顾着眼前一次工具调用：做到哪里、下一步是什么，全藏在模型的上下文里。今天加一张由模型维护的 TODO 表，再提供一个隔离上下文的子 Agent。主 Agent 负责安排顺序，子 Agent 负责处理边界清楚的小任务，当前进度始终显示在右侧分栏。

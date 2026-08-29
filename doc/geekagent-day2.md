@@ -1,3 +1,16 @@
+---
+title: 从零实现 GeekAgent —— Day2 工具调用循环
+description: >-
+  7天从零实现Agent教程，用 TypeScript 动手写一个最简单的 Agent/Harness。Day 2 让模型第一次「动手」：搭建工具调用循环，模型回答不再只是纸上谈兵，它真的会去查时间（get_current_time），为后续执行命令、读写文件铺路。
+date: '2026-08-21 21:30:00'
+tags:
+  - Agent
+  - Harness
+book: geekagent
+status: done
+draft: false
+---
+
 # Day 2：让模型第一次「动手」——工具调用循环
 
 > Day 1 让模型能「聊」，Day 2 让模型能「动手」：回答不再只是纸上谈兵，它真的会去查时间（未来是执行命令、读写文件）。
