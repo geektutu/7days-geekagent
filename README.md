@@ -9,65 +9,54 @@
 - 依赖与配置收敛在仓库根：根 `package.json` 的 `dev` 就是裸 `tsx`，用 `npm run dev -- dayN/index.ts` 运行对应天（路径随意给，新增一天**无需加任何 script**）；根 `tsconfig.json` 统一类型检查（`npm run typecheck` 扫全部 `day*/`）；根 `.env` / `.env.example` 全仓共用
 - 技术基线：TypeScript + Node + `tsx`，OpenAI 兼容接口，零框架（何时引入 TUI 由下面日程决定，不提前引入）
 
-## 阶段总览
-
-| 阶段 | 天数 | 主题 | 一句话目标 |
-|---|---|---|---|---|
-| A | Day 1–4 | 地基 | 能聊、能动手，读写工具统一收口 |
-| B | Day 5–7 | 上下文与展示 | 聊得长、分得开、用量看得见 |
-| C | Day 8 | 安全与权限 | 敢让它动手，也能兜底 |
-| D | Day 9–12 | Agent 能力进阶 | 规划、拆分、记忆、指令、技能、搜索、联网 |
-| E | Day 13–15 | 体验与工程化 | 稳定执行、配置收编、交互顺手 |
-| F | Day 16–17 | 进阶与收尾 | 可评测、复盘收尾 |
-
 ## 每日计划
 
 ### 阶段 A：地基（Day 1–4）——能聊，且开始动手
 
-| Day | 功能 | 最简单实现说明 | 状态 |
-|---|---|---|---|
-| 1 | REPL + 流式多轮对话 | `readline` 逐行读，`Chat` 类持有 history，OpenAI 兼容接口流式输出 | ✅ 已完成 |
-| 2 | 工具调用循环 | 模型返回 `tool_call` → 执行 → 结果回传 → 继续；第一个工具：当前时间。（例外：允许对 `Chat` 类做结构性调整以支撑 tool_calls delta） | ✅ 已完成 |
-| 3 | Shell 执行工具 | `child_process` 执行命令，超时 + 输出截断 + 执行前确认（确认逻辑独立成函数，供后续权限模型替换） | ✅ 已完成 |
-| 4 | 文件读写工具 + 工具收口 | `ls`/`read`/`glob` 只读免确认；`write`/`patch` 写入前展示 diff + 确认；顺手为攒下的 7 个工具立统一 `Tool` 接口 + 注册表 —— Agent 首次闭环「读 → 改 → 验证」 | ✅ 已完成 |
+| Day | 功能 | 最简单实现说明 |
+|---|---|---|
+| 1 | [REPL + 流式多轮对话](https://geektutu.com/post/geekagent-day1.html) | `readline` 逐行读，`Chat` 类持有 history，OpenAI 兼容接口流式输出 |
+| 2 | [工具调用循环](https://geektutu.com/post/geekagent-day2.html) | 模型返回 `tool_call` → 执行 → 结果回传 → 继续；第一个工具：当前时间。（例外：允许对 `Chat` 类做结构性调整以支撑 tool_calls delta） |
+| 3 | [Shell 执行工具](https://geektutu.com/post/geekagent-day3.html) | `child_process` 执行命令，超时 + 输出截断 + 执行前确认（确认逻辑独立成函数，供后续权限模型替换） |
+| 4 | [文件读写工具 + 工具收口](https://geektutu.com/post/geekagent-day4.html) | `ls`/`read`/`glob` 只读免确认；`write`/`patch` 写入前展示 diff + 确认；顺手为攒下的 7 个工具立统一 `Tool` 接口 + 注册表 —— Agent 首次闭环「读 → 改 → 验证」 |
 
 ### 阶段 B：上下文与展示（Day 5–7）——聊得长、分得开、用量看得见
 
-| Day | 功能 | 最简单实现说明 | 状态 |
-|---|---|---|---|
-| 5 | 历史压缩 | history 超长时用模型摘要旧文，腾出上下文 | ✅ 已完成 |
-| 6 | 多会话 + 会话持久化 | `/new` `/sessions` `/open` 内存多会话；`/save` `/load` 全部会话与当前 ID 落 `.geekagent/sessions.json`，退出自动保存 | ✅ 已完成 |
-| 7 | 轻量 TUI + 用量显示 | 右侧常驻面板实时显示本轮/累计 tokens 与上下文占用比例；流式回复与工具进度行全部进主区并着色。Alt 屏 + 双栏整帧重绘 | ✅ 已完成 |
+| Day | 功能 | 最简单实现说明 |
+|---|---|---|
+| 5 | [历史压缩](https://geektutu.com/post/geekagent-day5.html) | history 超长时用模型摘要旧文，腾出上下文 |
+| 6 | [多会话 + 会话持久化](https://geektutu.com/post/geekagent-day6.html) | `/new` `/sessions` `/open` 内存多会话；`/save` `/load` 全部会话与当前 ID 落 `.geekagent/sessions.json`，退出自动保存 |
+| 7 | [轻量 TUI + 用量显示](https://geektutu.com/post/geekagent-day7.html) | 右侧常驻面板实时显示本轮/累计 tokens 与上下文占用比例；流式回复与工具进度行全部进主区并着色。Alt 屏 + 双栏整帧重绘 |
 
 ### 阶段 C：安全与权限（Day 8）——敢动手也兜得住
 
-| Day | 功能 | 最简单实现说明 | 状态 |
-|---|---|---|---|
-| 8 | 权限模型 + 目录隔离 + 敏感信息保护 + 撤销 | 工具级策略（ask/allow/deny）与允许访问的根目录由 `.geekagent/GeekAgent.json` 配置；文件工具只允许在根目录内读写，工具结果自动屏蔽 KEY 类环境变量；写文件前备份最近状态，`/undo` 恢复 | ✅ 已完成 |
+| Day | 功能 | 最简单实现说明 |
+|---|---|---|
+| 8 | [权限模型 + 目录隔离 + 敏感信息保护 + 撤销](https://geektutu.com/post/geekagent-day8.html) | 工具级策略（ask/allow/deny）与允许访问的根目录由 `.geekagent/GeekAgent.json` 配置；文件工具只允许在根目录内读写，工具结果自动屏蔽 KEY 类环境变量；写文件前备份最近状态，`/undo` 恢复 |
 
 ### 阶段 D：能力进阶（Day 9–12）——更像一个真正的 Agent
 
-| Day | 功能 | 最简单实现说明 | 状态 |
-|---|---|---|---|
-| 9 | 任务规划器 + 子 Agent 拆分 | 维护 TODO 列表逐步执行，`/todos` 查看；大任务拆成子任务串行执行（简单 pipeline，非并行） | ✅ 已完成 |
-| 10 | 项目指令 + 可检索长期记忆 | 项目根 `AGENTS.md` 全量注入 system prompt；运行时重要结论写入 memory 文件，跨会话按关键词搜索复用 | ✅ 已完成 |
-| 11 | 技能系统 | `skills/` 目录 = 一组 system prompt + 工具集合，`/use <name>` 按需加载 | ⬜ |
-| 12 | 代码搜索 + Web 抓取 | `search` 工具（ripgrep 风格）仓库内检索；`fetch` 网页转 markdown，让模型看见外面的世界 | ⬜ |
+| Day | 功能 | 最简单实现说明 |
+|---|---|---|
+| 9 | [任务规划器 + 子 Agent 拆分](https://geektutu.com/post/geekagent-day9.html) | 维护 TODO 列表逐步执行，`/todos` 查看；大任务拆成子任务串行执行（简单 pipeline，非并行） |
+| 10 | [项目指令 + 可检索长期记忆](https://geektutu.com/post/geekagent-day10.html) | 项目根 `AGENTS.md` 全量注入 system prompt；运行时重要结论写入 memory 文件，跨会话按关键词搜索复用 |
+| 11 | 技能系统 | `skills/` 目录 = 一组 system prompt + 工具集合，`/use <name>` 按需加载 |
+| 12 | 代码搜索 + Web 抓取 | `search` 工具（ripgrep 风格）仓库内检索；`fetch` 网页转 markdown，让模型看见外面的世界 |
 
 ### 阶段 E：体验与工程化（Day 13–15）——执行稳定、配置收编、交互顺手
 
-| Day | 功能 | 最简单实现说明 | 状态 |
-|---|---|---|---|
-| 13 | 重试体系 + 并行工具调用 | 网络层 SDK 内置重试 + 随机退避（`maxRetries` / 超时配置驱动）；业务层工具失败 → 模型读错误自修 → 重试 N 次；一次请求发多个独立工具，`Promise.all` 聚合结果（不支持则降级串行） | ⬜ |
-| 14 | 配置体系 + 多模型切换 + 日志调试 | 全局/项目级 `.geekagent/GeekAgent.json`，支持直接填写 API Key，也可用环境变量覆盖；预置多套 baseURL/model/key，`/model` 热切换；超时、重试次数等健壮性参数一并收编；`DEBUG=1` 打印工具调用轨迹，可复现问题 | ⬜ |
-| 15 | 交互组件化 | 引入 `clack`：spinner / 确认框 / 多选，替换裸确认提示（Day 7 已接管补全、快捷键与 Ctrl+C 中断，此天专注组件与体验细节） | ⬜ |
+| Day | 功能 | 最简单实现说明 |
+|---|---|---|
+| 13 | 重试体系 + 并行工具调用 | 网络层 SDK 内置重试 + 随机退避（`maxRetries` / 超时配置驱动）；业务层工具失败 → 模型读错误自修 → 重试 N 次；一次请求发多个独立工具，`Promise.all` 聚合结果（不支持则降级串行） |
+| 14 | 配置体系 + 多模型切换 + 日志调试 | 全局/项目级 `.geekagent/GeekAgent.json`，支持直接填写 API Key，也可用环境变量覆盖；预置多套 baseURL/model/key，`/model` 热切换；超时、重试次数等健壮性参数一并收编；`DEBUG=1` 打印工具调用轨迹，可复现问题 |
+| 15 | 交互组件化 | 引入 `clack`：spinner / 确认框 / 多选，替换裸确认提示（Day 7 已接管补全、快捷键与 Ctrl+C 中断，此天专注组件与体验细节） |
 
 ### 阶段 F：进阶与收尾（Day 16–17）
 
-| Day | 功能 | 最简单实现说明 | 状态 |
-|---|---|---|---|
-| 16 | 基准评测 | 一组真实任务（改 bug / 写测试）跑分，输出报告 | ⬜ |
-| 17 | 路线图复盘 | 逐条对照「最简单」原则复盘，写总结博文收尾 | ⬜ |
+| Day | 功能 | 最简单实现说明 |
+|---|---|---|
+| 16 | 基准评测 | 一组真实任务（改 bug / 写测试）跑分，输出报告 |
+| 17 | 路线图复盘 | 逐条对照「最简单」原则复盘，写总结博文收尾 |
 
 ## 编排说明
 
