@@ -1,0 +1,22 @@
+{
+  "name": "GeekAgent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "纯实验性质的最简单 Agent：根目录统一依赖，npm run dev -- dayN/index.ts 运行对应天",
+  "scripts": {
+    "dev": "tsx",
+    "typecheck": "tsc --noEmit",
+    "pdf": "tsx scripts/pdf.ts"
+  },
+  "dependencies": {
+    "@earendil-works/pi-tui": "0.84.4",
+    "dotenv": "^17.4.2",
+    "openai": "^7.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.3.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}
