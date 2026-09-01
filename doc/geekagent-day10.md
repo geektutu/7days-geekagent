@@ -11,7 +11,7 @@ status: done
 draft: false
 ---
 
-# Day 10：项目指令与长期记忆
+# Day 10：既懂项目规则，也记得用户偏好——项目指令与长期记忆
 
 > GeekAgent 已经能保存会话，但新建会话后，模型不知道项目规则，也想不起以前确认过的偏好。今天补上两种跨会话信息：`AGENTS.md` 保存项目规则，memory 保存运行中积累的经验。
 
@@ -39,10 +39,9 @@ memory 更像 Agent 的便签。模型在工作时把用户偏好、项目事实
 
 今天的验收标准：
 
-1. 启动时读取项目根目录的 `AGENTS.md`，每轮请求完整带上
-2. 模型能用 `memory_write` 把重要结论写入 `.geekagent/memory.json`
-3. memory 不提前交给模型，通过 `memory_search` 按关键词查找
-4. memory 跨会话、跨重启保留，`/memory` 可查看
+1. 启动时读取工作根目录的 `AGENTS.md`，每轮请求都把完整项目规则放在 history 前面的 system prompt 中；
+2. 模型能用 `memory_write` 保存用户偏好、项目事实和重要决定，需要回忆时再用 `memory_search` 按关键词取回，而不是每轮携带全部记忆；
+3. 长期记忆写入 `.geekagent/memory.json`，切换会话或重启后仍然存在，`/memory` 可以查看当前条目。
 
 **当天代码行数**：Day 10 源码相对 Day 9 新增 128 行、删除 13 行，净增 115 行，控制在 500 行以内。
 
@@ -143,6 +142,13 @@ export async function loadInstructions(root: string): Promise<string> {
 ### 3.3 主流方案是 embedding，今天先用关键词
 
 现在主流的记忆搜索会使用 embedding：先用模型把文字转换成一串数字，再比较两串数字有多接近。这样搜索「回复风格」，也可能找到「用户希望回答先给结论」。
+
+| | 关键词搜索 | embedding 搜索 |
+|---|---|---|
+| 匹配依据 | 是否出现相同词语 | 向量之间的语义距离 |
+| 擅长 | 名称、代码、原句 | 同义表达、换一种说法 |
+| 额外组件 | 无 | embedding 模型；规模大时还需向量数据库 |
+| 当前选择 | 采用，几十行即可跑通 | 暂不采用 |
 
 ```text
 写入：记忆文本 ──embedding──> 向量，随记忆一起保存
@@ -322,8 +328,6 @@ npm run dev -- day10/index.ts
 3. 输入 `/new review`，再问“回忆用户对回答方式的偏好”，确认先出现 `memory_search`，再给出答案
 4. 输入 `/memory` 并重启 Day 10，确认本地记忆仍然存在
 5. 检查 `git status`，确认 `.geekagent/memory.json` 没有进入版本库
-
-搜索“博客 人称”应该只返回包含这些词的记忆；搜索“不存在”应该返回“没有找到相关记忆”。
 
 ## 6. 没做什么
 
