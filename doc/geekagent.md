@@ -29,6 +29,14 @@ outline:
         short: Day9 任务规划与子 Agent
       - slug: geekagent-day10
         short: Day10 项目指令与长期记忆
+      - slug: geekagent-day11
+        short: Day11 技能系统（Skills）
+      - slug: geekagent-day12
+        short: Day12 代码搜索与网页抓取
+      - slug: geekagent-day13
+        short: Day13 主动记忆
+      - slug: geekagent-day14
+        short: Day14 轻 RAG 知识库
 repo: https://github.com/geektutu/7days-geekagent
 cover: >-
   https://image.pollinations.ai/prompt/minimalist%20book%20cover%20illustration%2C%20agent%20harness%20tutorial%2C%20warm%20cream%20paper%20background%2C%20terracotta%20orange%20geometric%20line%20art%20of%20terminal%20prompt%20and%20command%20blocks%2C%20subtle%20robot%20mascot%20silhouette%2C%20olive%20green%20accents%2C%20flat%20vector%20style%2C%20elegant%20composition%2C%20no%20text?width=1024&height=1280&nologo=true&seed=11
