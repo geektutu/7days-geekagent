@@ -6,7 +6,7 @@
  * 目录 + 逐篇渲染），Markdown → Typst 交给 cmarker 包，PDF 由 typst CLI 编译。
  */
 import { execFileSync } from "node:child_process";
-import { readdirSync, unlinkSync, writeFileSync } from "node:fs";
+import { readFileSync, unlinkSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 const DOC = join(resolve(import.meta.dirname, ".."), "doc");
@@ -16,30 +16,61 @@ const TEMPLATE = `#import "@preview/cmarker:0.1.6": render
 #set page(paper: "a4", margin: (x: 2.8cm, y: 2cm), numbering: "1", number-align: center)
 #set text(font: "Noto Sans CJK SC", size: 10pt, lang: "zh")
 #set par(leading: 1em, spacing: 1.2em)
+#let markdown(path) = {
+  let source = read(path).replace(regex("(?s)^---\\r?\\n.*?\\r?\\n---(?:\\r?\\n|$)"), "")
+  source.replace(regex("^\\s*# [^\\r\\n]+(?:\\r?\\n|$)"), "")
+}
 // 本机 Noto Sans CJK SC 只有 Regular 字重，用描边模拟粗体
 #show heading: set text(stroke: 0.6pt)
 #show heading: set block(above: 2em, below: 1.6em)
 
-#text(size: 20pt, weight: "bold", stroke: 0.6pt)[GeekAgent：28 天从零实现 Agent]
+#align(center)[
+  #text(size: 20pt, weight: "bold", stroke: 0.6pt)[GeekAgent：七天从零实现 Agent]
+  #v(1em)
+  #text(fill: rgb("#2563eb"))[#link({repo})[项目 geekagent]]
+  #v(0.5em)
+  #text(fill: rgb("#2563eb"))[#link("https://geektutu.com/books/geekagent")[作者 geektutu]]
+]
 #v(1em)
-#outline(depth: 1)
+#outline(depth: 2)
 #pagebreak()
 
 {items}
 `;
 
-const mdFiles = readdirSync(DOC).filter(f => f.endsWith(".md")).sort((a, b) => {
-  const num = (f: string) => Number(f.match(/\d+/)?.[0] ?? 0);
-  return num(a) - num(b);
-});
-if (mdFiles.length === 0) {
-  console.error("doc/ 下没有 .md 文件");
+type BookPart = { title: string; slugs: string[] };
+
+const config = readFileSync(join(DOC, "geekagent.md"), "utf8");
+const repo = config.match(/^repo:\s*(.+)$/m)?.[1].trim();
+if (!repo) {
+  console.error("doc/geekagent.md 中没有 repo 配置");
+  process.exit(1);
+}
+
+const parts: BookPart[] = [];
+for (const line of config.split(/\r?\n/)) {
+  const part = line.match(/^  - part: (.+)$/)?.[1];
+  if (part) {
+    parts.push({ title: part, slugs: [] });
+    continue;
+  }
+  const slug = line.match(/^      - slug: (.+)$/)?.[1];
+  if (slug && parts.length > 0) parts.at(-1)!.slugs.push(slug);
+}
+if (parts.length === 0 || parts.some(part => part.slugs.length === 0)) {
+  console.error("doc/geekagent.md 中没有完整的 part/chapters 配置");
   process.exit(1);
 }
 
 // 逐篇渲染、篇间分页；✅ 是 emoji（U+2705），Noto 无此字形，替换为 ✓
-const items = mdFiles
-  .map(f => `#render(read("${f}").replace("✅", "✓"), html: (
+const renderArticle = (slug: string) => {
+  const f = `${slug}.md`;
+  const title = readFileSync(join(DOC, f), "utf8").match(/^# (.+)$/m)?.[1];
+  const url = `https://geektutu.com/post/${slug}.html`;
+  const heading = title
+    ? `#heading(level: 2)[#link(${JSON.stringify(url)})[#text(${JSON.stringify(title)})]]\n`
+    : "";
+  return `${heading}#render(markdown("${f}").replace("✅", "✓"), html: (
   // 让 Markdown 里的 <span style="color:#hex">…</span> 在 Typst 里也上色，
   // 与 HTML 博客共用同一套写法（HTML 侧原生支持，无需此处理）。
   span: (attrs, body) => {
@@ -87,15 +118,23 @@ const items = mdFiles
     }
     block(inset: 8pt, fill: rgb("#1e1e1e"), radius: 4pt, text(fill: rgb("#d4d4d4"), out.join(linebreak())))
   }),
-))`)
+), h1-level: 2)`;
+};
+
+const items = parts
+  .map(part => `#align(center + horizon)[#heading(level: 1)[#text(${JSON.stringify(part.title)})]]
+#pagebreak()
+${part.slugs.map(renderArticle).join("\n#pagebreak()\n")}`)
   .join("\n#pagebreak()\n");
 
 const build = join(DOC, ".book.typ");
-writeFileSync(build, TEMPLATE.replace("{items}", items));
+writeFileSync(build, TEMPLATE
+  .replace("{repo}", JSON.stringify(repo))
+  .replace("{items}", items));
 try {
   execFileSync("typst", ["compile", build, OUT], { stdio: "inherit" });
 } finally {
   unlinkSync(build);
 }
 
-console.log(`已生成 doc/geekagent-book.pdf（${mdFiles.length} 篇）`);
+console.log(`已生成 doc/geekagent-book.pdf（${parts.length} 个大章节，${parts.flatMap(part => part.slugs).length} 篇）`);
