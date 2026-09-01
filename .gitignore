@@ -3,3 +3,4 @@ dist/
 .env
 *.pdf
 .geekagent/
+.DS_Store

@@ -12,6 +12,9 @@ import { join, resolve } from "node:path";
 const DOC = join(resolve(import.meta.dirname, ".."), "doc");
 const OUT = join(DOC, "geekagent-book.pdf");
 
+const pkg = JSON.parse(readFileSync(join(resolve(import.meta.dirname, ".."), "package.json"), "utf8"));
+const version = pkg.version;
+
 const TEMPLATE = `#import "@preview/cmarker:0.1.6": render
 #set page(paper: "a4", margin: (x: 2.8cm, y: 2cm), numbering: "1", number-align: center)
 #set text(font: "Noto Sans CJK SC", size: 10pt, lang: "zh")
@@ -27,7 +30,7 @@ const TEMPLATE = `#import "@preview/cmarker:0.1.6": render
 #align(center)[
   #text(size: 20pt, weight: "bold", stroke: 0.6pt)[GeekAgent：七天从零实现 Agent]
   #v(1em)
-  #text(fill: rgb("#2563eb"))[#link({repo})[项目 geekagent]]
+  #text(fill: rgb("#2563eb"))[#link({repo})[geekagent\\@{version}]]
   #v(0.5em)
   #text(fill: rgb("#2563eb"))[#link("https://geektutu.com/books/geekagent")[作者 geektutu]]
 ]
@@ -130,6 +133,7 @@ ${part.slugs.map(renderArticle).join("\n#pagebreak()\n")}`)
 const build = join(DOC, ".book.typ");
 writeFileSync(build, TEMPLATE
   .replace("{repo}", JSON.stringify(repo))
+  .replace("{version}", version)
   .replace("{items}", items));
 try {
   execFileSync("typst", ["compile", build, OUT], { stdio: "inherit" });
