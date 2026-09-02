@@ -37,6 +37,10 @@ outline:
         short: Day13 主动记忆
       - slug: geekagent-day14
         short: Day14 轻 RAG 知识库
+  - part: 扩展 - 工具互联
+    chapters:
+      - slug: geekagent-day15
+        short: Day15 MCP 工具接入
 repo: https://github.com/geektutu/7days-geekagent
 cover: >-
   https://image.pollinations.ai/prompt/minimalist%20book%20cover%20illustration%2C%20agent%20harness%20tutorial%2C%20warm%20cream%20paper%20background%2C%20terracotta%20orange%20geometric%20line%20art%20of%20terminal%20prompt%20and%20command%20blocks%2C%20subtle%20robot%20mascot%20silhouette%2C%20olive%20green%20accents%2C%20flat%20vector%20style%2C%20elegant%20composition%2C%20no%20text?width=1024&height=1280&nologo=true&seed=11

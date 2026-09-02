@@ -2,5 +2,6 @@ node_modules/
 dist/
 .env
 *.pdf
-.geekagent/
+.geekagent/*
+!.geekagent/mcp.json
 .DS_Store
