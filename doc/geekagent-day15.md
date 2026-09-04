@@ -559,12 +559,10 @@ npm run dev -- day15/index.ts
 
 ## 6. 没做什么
 
-- 只支持 stdio 传输，连不了远程的 Streamable HTTP server，也就没有 OAuth 鉴权那一层；
-- server 提供的 resources、prompts，以及 client 提供的 sampling 都没有接；
-- 不处理 server 的动态变化（工具增删通知、分页拉取）与断线重连，server 崩溃后要重启 Agent；
-- content 只取 text 块，图片、嵌入式资源等类型不处理；
-- 工具名截断、同名冲突等极端情况依赖注册表的报错，没有做更细的规范化。
+- 只支持本地 stdio server，没有 Streamable HTTP 和 OAuth；
+- 只接入工具与文本结果，没有 resources、prompts、sampling 和多模态 content；
+- 不处理工具动态变化、分页和断线重连，server 崩溃后需要重启 Agent。
 
 ## 7. 下一步
 
-MCP 让工具可以在 Agent 之外独立演进，但当前连接仍局限在本机，能力也只有 tools。接下来可以沿着传输范围、协议能力和工具管理继续扩展，让外部能力在更多场景中保持可发现、可控制。
+MCP 解决了“外部工具怎样接进来”，但回头看主程序，Skills、RAG、MCP 仍各自拥有初始化代码、命令入口和退出清理。下一步，我们给这些扩展能力补一套统一的加载与生命周期约定，让新增能力不必继续往 `index.ts` 里堆接线代码。

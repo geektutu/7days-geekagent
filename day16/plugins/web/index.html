@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GeekAgent Day 16</title>
+<style>
+body { margin: 0; background: #16181d; color: #d4d4d4; display: flex; flex-direction: column; height: 100vh; font: 13px/1.5 monospace; }
+#chat { width: 100%; max-width: 880px; box-sizing: border-box; align-self: center; flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; }
+.bubble { max-width: 80%; padding: 8px 12px; margin: 0 0 8px; white-space: pre-wrap; }
+.user { background: #1f4d3a; color: #d7fff0; align-self: flex-end; }
+.assistant { background: #23262e; }
+.tool { color: #cdcd00; font-size: 12px; margin: 0 0 6px; }
+.system { color: #808080; font-size: 12px; margin: 0 0 6px; white-space: pre-wrap; }
+.error { color: #cd5c5c; font-size: 12px; margin: 0 0 6px; }
+#bar { width: 100%; max-width: 880px; box-sizing: border-box; align-self: center; display: flex; gap: 6px; padding: 10px 12px; border-top: 1px solid #2a2d36; }
+#inp { flex: 1; background: #23262e; border: 1px solid #3a3e48; color: #e8e8e8; padding: 8px 10px; }
+#btn { background: #0cc; color: #000; border: 0; padding: 0 18px; }
+#btn:disabled { background: #3a3e48; color: #808080; }
+</style>
+</head>
+<body>
+<div id="chat"></div>
+<div id="bar">
+  <input id="inp" placeholder="输入消息，回车发送" autocomplete="off">
+  <button id="btn">发送</button>
+</div>
+<script>
+const chat = document.getElementById('chat'), inp = document.getElementById('inp'), btn = document.getElementById('btn');
+let busy = false;
+function add(c, t) { const e = document.createElement('div'); e.className = c; e.textContent = t; chat.appendChild(e); chat.scrollTop = chat.scrollHeight; return e; }
+async function send() {
+  if (busy) return;
+  const msg = inp.value.trim();
+  if (!msg) return;
+  inp.value = ''; add('bubble user', msg);
+  busy = true; btn.disabled = true;
+  let cur = null;
+  try {
+    const resp = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: msg }) });
+    if (!resp.ok || !resp.body) throw new Error('HTTP ' + resp.status);
+    const reader = resp.body.getReader();
+    const dec = new TextDecoder();
+    let buf = '';
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, { stream: true });
+      let idx;
+      while ((idx = buf.indexOf('\n\n')) >= 0) {
+        const line = buf.slice(0, idx).trim();
+        buf = buf.slice(idx + 2);
+        if (!line.startsWith('data: ')) continue;
+        const evt = JSON.parse(line.slice(6));
+        if (evt.type === 'content') {
+          if (!cur) cur = add('bubble assistant', '');
+          cur.textContent += evt.text;
+        } else if (evt.type === 'tool') { add('tool', evt.text.trim()); }
+        else if (evt.type === 'system') { add('system', evt.text); }
+        else if (evt.type === 'error') { add('error', evt.text); }
+        else if (evt.type === 'done') { cur = null; }
+      }
+    }
+  } catch (e) { add('error', e.message); }
+  busy = false; btn.disabled = false; inp.focus();
+}
+inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') send(); });
+btn.addEventListener('click', send);
+add('bubble assistant', '你好，我是 GeekAgent。');
+inp.focus();
+</script>
+</body>
+</html>

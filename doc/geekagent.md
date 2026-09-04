@@ -1,7 +1,7 @@
 ---
 id: geekagent
 title: 七天从零实现 GeekAgent
-description: 7 天用 TypeScript 从零实现一个最简单的 Agent/Harness，坚持最小可用、只增量不推翻。从 REPL 对话地基一路走到工具调用、文件读写、历史压缩、多会话持久化、轻量 TUI、权限回滚与任务规划。
+description: 7 天用 TypeScript 从零实现一个最简单的 Agent/Harness，坚持最小可用、只增量不推翻。从 REPL 对话地基一路走到工具调用、文件读写、历史压缩、多会话持久化、权限回滚、知识检索、MCP 与插件扩展。
 order: 10
 featured: true
 outline:
@@ -41,6 +41,8 @@ outline:
     chapters:
       - slug: geekagent-day15
         short: Day15 MCP 工具接入
+      - slug: geekagent-day16
+        short: Day16 插件框架与 Web
 repo: https://github.com/geektutu/7days-geekagent
 cover: >-
   https://image.pollinations.ai/prompt/minimalist%20book%20cover%20illustration%2C%20agent%20harness%20tutorial%2C%20warm%20cream%20paper%20background%2C%20terracotta%20orange%20geometric%20line%20art%20of%20terminal%20prompt%20and%20command%20blocks%2C%20subtle%20robot%20mascot%20silhouette%2C%20olive%20green%20accents%2C%20flat%20vector%20style%2C%20elegant%20composition%2C%20no%20text?width=1024&height=1280&nologo=true&seed=11
