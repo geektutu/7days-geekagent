@@ -167,7 +167,7 @@ TUI 模式下，`/plugins` 展示已加载的插件和它们的命令：
 
 打开这个地址，就可以在浏览器里执行命令、对话和调用工具：
 
-![web 插件对话界面](geekagent/web-plugin.png)
+![web 插件对话界面](geekagent/web-plugin.jpg)
 
 ### 4.2 plugin-sdk.ts：插件唯一需要 import 的文件（完整 7 行）
 
