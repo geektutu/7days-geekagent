@@ -11,6 +11,8 @@
 
 不要主动提交代码，等待我确认后，再提交。
 
+commit message 统一用英文。
+
 ## doc 博客写作
 
 写作风格参照「7天用Go从零实现」系列（https://geektutu.com/post/gee.html，已逐篇读 Gee / GeeCache / GeeRPC 的 Day1/Day2）。
