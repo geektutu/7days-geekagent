@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 14 Lightweight RAG Knowledge Base
 description: >-
   A 7-day tutorial on building an Agent from scratch, writing the simplest possible Agent/Harness in TypeScript. Day 14 reuses Day 13's chunking and BM25 search to build a lightweight knowledge base that collects web pages and files and returns the relevant passages for a question.

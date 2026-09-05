@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 6 Multiple Sessions and Persistence
 description: >-
   A 7-day tutorial on building an Agent from scratch, writing the simplest possible Agent/Harness in TypeScript. Day 6 does two things: let one process maintain several mutually independent sessions at once (/new, /sessions, /open), then persist the whole session collection together with the current ID to JSON in one shot (/save, /load, auto-save on exit) — "chat long" is upgraded to "split apart and kept around".

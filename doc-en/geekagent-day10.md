@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 10 Project Instructions and Long-term Memory
 description: >-
   A 7-day tutorial on building an Agent from scratch, writing the simplest possible Agent/Harness in TypeScript. Day 10 adds two kinds of cross-session information: AGENTS.md stores project rules, and memory stores know-how accumulated while running, so a freshly created session's model knows the project rules and remembers previously confirmed preferences.

@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 3 Bash Tool
 description: >-
   A 7-day from-scratch tutorial for building an Agent/Harness by hand in TypeScript. Day 3 wires up the model's first tool that touches the real machine: running shell commands locally, with three guardrails — timeout, output truncation, and confirm-before-run — so the Agent can finally take real action.

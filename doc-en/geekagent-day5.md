@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 5 History Compaction
 description: >-
   A 7-day tutorial on building an Agent from scratch, writing the simplest possible Agent/Harness in TypeScript. Day 5 tackles "chat long without forgetting": when the history array only grows and the conversation keeps getting longer, history compaction keeps the context size under control, so long conversations stay within the model's context window.

@@ -1,4 +1,5 @@
 ---
+lang: en
 id: geekagent
 title: Build GeekAgent from Scratch in 7 Days
 description: Build the simplest possible Agent/Harness from scratch in TypeScript over 7 days, staying minimally viable and additive-only. The road runs from a REPL chat foundation through tool calling, file read/write, history compression, multi-session persistence, permissions and rollback, knowledge retrieval, and on to MCP and plugin extensions.

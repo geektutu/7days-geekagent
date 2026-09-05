@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 8 Permissions and Rollback
 description: >-
   A 7-day tutorial on building an Agent from scratch, writing the simplest possible Agent/Harness in TypeScript. Day 8 draws boundaries for tools and leaves an escape hatch for writes: use .geekagent/GeekAgent.json to define permissions and directory boundaries, and save the most recent state before every file write—operations that shouldn't happen are blocked up front, and mistakes can be reverted with /undo.

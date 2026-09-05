@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 1 REPL Foundation
 description: >-
   A 7-day build-an-Agent-from-scratch tutorial: hand-write the simplest possible Agent/Harness in TypeScript/Node.js, implementing a REPL loop and streaming multi-turn conversation from zero. This post covers what a REPL is, why it makes the right foundation for an Agent, and how readline plus an OpenAI-compatible API gets the first step, "being able to chat," running in under 160 lines of code.

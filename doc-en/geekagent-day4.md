@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 4 File Tools and Registry
 description: >-
   A 7-day from-scratch tutorial for building an Agent/Harness by hand in TypeScript. Day 4 splits both reads and writes out of the shell: reads go through confirmation-free dedicated tools (ls/read/glob), writes go through a dedicated channel that shows a diff before touching disk (write/patch), and the accumulated tools are unified into a single registry — the first time the model completes the full read → modify → verify loop.

@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 2 Tool Calling Loop
 description: >-
   A 7-day build-an-Agent-from-scratch tutorial: hand-write the simplest possible Agent/Harness in TypeScript. Day 2 builds the tool calling loop: the model can request get_current_time, the program executes it and hands the real time back to the model, laying the groundwork for the command and file tools to come.

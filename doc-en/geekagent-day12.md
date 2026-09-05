@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 12 Code Search and Web Fetching
 description: >-
   A 7-day tutorial on building an Agent from scratch, writing the simplest possible Agent/Harness in TypeScript. Day 12 adds `search` and `fetch`: one searches the repository by content, the other reads a web page and converts it to plain text.

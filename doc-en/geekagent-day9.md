@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 9 Task Planning and Subagents
 description: >-
   A 7-day tutorial on building an Agent from scratch, writing the simplest possible Agent/Harness in TypeScript. Day 9 makes the Agent list a plan before acting: add a TODO table maintained by the model, plus a subagent that isolates context. The main Agent arranges the order, the subagent handles small tasks with clear boundaries, and current progress always shows in the right-hand panel.

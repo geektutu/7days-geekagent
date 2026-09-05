@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 13 Proactive Memory
 description: >-
   A 7-day tutorial on building an Agent from scratch, writing the simplest possible Agent/Harness in TypeScript. Day 13 cuts long-term memory into small chunks, finds the relevant ones with BM25, and automatically places them into the context before every turn.

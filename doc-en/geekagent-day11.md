@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 11 Skills
 description: >-
   A 7-day tutorial on building an Agent from scratch, writing the simplest possible Agent/Harness in TypeScript. Day 11 packages task instructions and tools into skills that can be loaded and unloaded on demand, controlling which tools the model can see at any moment.

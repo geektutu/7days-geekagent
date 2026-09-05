@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 7 Lightweight TUI and Usage Panel
 description: >-
   A 7-day tutorial on building an Agent from scratch, writing the simplest possible Agent/Harness in TypeScript. Day 7 gives the terminal a new desk: the program temporarily takes over the whole screen, the message stream lives on the left, and a usage panel stays permanently on the right — per-turn / total tokens and context usage stay visible while you chat, and the original terminal content is restored on exit.

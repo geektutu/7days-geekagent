@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 16 Plugin Framework
 description: >-
   A 7-day tutorial on building an Agent from scratch, writing the simplest possible Agent/Harness in TypeScript. Day 16 wraps capabilities into standalone plugins: drop a subdirectory with a plugin.ts into plugins/ and the main program loads it automatically at startup — commands, tools, and HTTP services all become plug-and-play.

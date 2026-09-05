@@ -1,4 +1,5 @@
 ---
+lang: en
 title: Build GeekAgent from Scratch — Day 15 MCP Tool Integration
 description: >-
   A 7-day tutorial on building an Agent from scratch, writing the simplest possible Agent/Harness in TypeScript. Day 15 integrates MCP: servers are declared in a config file, JSON-RPC runs over stdio at startup, and tools provided by external processes land straight in the model's tool list.
